@@ -1,8 +1,10 @@
-﻿namespace PhoneBookTestApp
+﻿using System.Threading.Tasks;
+
+namespace PhoneBookTestApp
 {
     public interface IPhoneBook
     {
-        Person findPerson(string firstName, string lastName);
-        void addPerson(Person newPerson);
+        Task<Person> FindPerson(string firstName, string lastName);
+        Task AddPerson(Person person);
     }
 }

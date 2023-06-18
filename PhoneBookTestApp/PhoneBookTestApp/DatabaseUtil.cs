@@ -1,14 +1,17 @@
 ﻿using System;
+using System.Configuration;
+using System.Data;
 using System.Data.SQLite;
 
 namespace PhoneBookTestApp
 {
     public class DatabaseUtil
     {
-        public static void initializeDatabase()
+        private static readonly string connectionString = ConfigurationManager.ConnectionStrings["DbCon"].ConnectionString;
+
+        public static void InitializeDatabase()
         {
-            var dbConnection = new SQLiteConnection("Data Source= MyDatabase.sqlite;Version=3;");
-            dbConnection.Open();
+            var dbConnection = GetConnection();
 
             try
             {
@@ -43,7 +46,7 @@ namespace PhoneBookTestApp
 
         public static SQLiteConnection GetConnection()
         {
-            var dbConnection = new SQLiteConnection("Data Source= MyDatabase.sqlite;Version=3;");
+            var dbConnection = new SQLiteConnection(connectionString);
             dbConnection.Open();
 
             return dbConnection;
@@ -51,8 +54,7 @@ namespace PhoneBookTestApp
 
         public static void CleanUp()
         {
-            var dbConnection = new SQLiteConnection("Data Source= MyDatabase.sqlite;Version=3;");
-            dbConnection.Open();
+            var dbConnection = GetConnection();
 
             try
             {
